@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOKO ONLINE SEDERHANA - Booking Konsultasi Guru</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Online UMKM</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>TOKO ONLINE SEDERHANA</h1>
-            <p>Sistem Booking Konsultasi Guru</p>
-        </header>
+  <header>
+    <h1>Toko UMKM Kita</h1>
+    <nav>
+      <button onclick="showSection('home')">Homepage</button>
+      <button onclick="showSection('products')">Daftar Produk</button>
+      <button onclick="showSection('cart')">Keranjang (<span id="cart-count">0</span>)</button>
+    </nav>
+  </header>
 
-        <section class="card">
-            <h2>Form Booking Konsultasi</h2>
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label for="namaSiswa">1. Nama Siswa</label>
-                    <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap" required>
-                </div>
+  <main>
+    <section id="home-section" class="active-section">
+      <div class="hero">
+        <h2>Selamat Datang di Toko Online UMKM</h2>
+        <p>Temukan produk lokal berkualitas dengan harga terbaik!</p>
+        <button class="btn-primary" onclick="showSection('products')">Belanja Sekarang</button>
+      </div>
+    </section>
 
-                <div class="form-group">
-                    <label for="pilihGuru">2. Pilih Guru</label>
-                    <select id="pilihGuru" required>
-                        <option value="">-- Pilih Guru --</option>
-                        <option value="Pak Budi (Matematika)">Pak Budi (Matematika)</option>
-                        <option value="Bu Siti (Bahasa Inggris)">Bu Siti (Bahasa Inggris)</option>
-                        <option value="Pak Andi (Fisika)">Pak Andi (Fisika)</option>
-                        <option value="Bu Dewi (Bimbingan Konseling)">Bu Dewi (Bimbingan Konseling)</option>
-                    </select>
-                </div>
+    <section id="products-section" class="hidden">
+      <h2>Daftar Produk</h2>
+      
+      <div class="filter-container">
+        <input type="text" id="search-input" placeholder="Search produk..." oninput="filterProducts()">
+        <select id="category-filter" onchange="filterProducts()">
+          <option value="all">Semua Kategori</option>
+          <option value="makanan">Makanan</option>
+          <option value="pakaian">Pakaian</option>
+          <option value="kerajinan">Kerajinan</option>
+        </select>
+      </div>
 
-                <div class="form-group-row">
-                    <div class="form-group">
-                        <label for="pilihTanggal">3. Pilih Tanggal</label>
-                        <input type="date" id="pilihTanggal" required>
-                    </div>
+      <div id="product-list" class="grid-container"></div>
+    </section>
 
-                    <div class="form-group">
-                        <label for="pilihJam">4. Pilih Jam</label>
-                        <input type="time" id="pilihJam" required>
-                    </div>
-                </div>
+    <section id="product-detail-section" class="hidden">
+      <button onclick="showSection('products')">&larr; Kembali ke Produk</button>
+      <div id="product-detail" class="detail-container"></div>
+    </section>
 
-                <div class="form-group">
-                    <label for="topikKonsultasi">5. Topik Konsultasi</label>
-                    <textarea id="topikKonsultasi" rows="3" placeholder="Jelaskan singkat topik yang ingin dibahas..." required></textarea>
-                </div>
+    <section id="cart-section" class="hidden">
+      <h2>Keranjang Belanja</h2>
+      <div id="cart-items"></div>
+      
+      <div class="cart-summary">
+        <h3>Total Pembayaran: <span id="total-price">Rp 0</span></h3>
+        <button id="checkout-btn" class="btn-primary" onclick="showSection('checkout')" disabled>Lanjut ke Checkout</button>
+      </div>
+    </section>
 
-                <button type="submit" id="btnSubmit">Simpan Jadwal Booking</button>
-            </form>
-        </section>
+    <section id="checkout-section" class="hidden">
+      <h2>Form Checkout</h2>
+      <form id="checkout-form" onsubmit="processOrder(event)">
+        <div class="form-group">
+          <label for="name">Nama Lengkap:</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Alamat Pengiriman:</label>
+          <textarea id="address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment">Metode Pembayaran:</label>
+          <select id="payment" required>
+            <option value="transfer">Transfer Bank</option>
+            <option value="cod">Bayar di Tempat (COD)</option>
+            <option value="e-wallet">E-Wallet</option>
+          </select>
+        </div>
+        <h3>Ringkasan Total: <span id="checkout-total">Rp 0</span></h3>
+        <button type="submit" class="btn-primary">Konfirmasi Pesanan</button>
+      </form>
+    </section>
+  </main>
 
-        <section class="card">
-            <h2>6. Jadwal Konsultasi Terdaftar</h2>
-            <div class="table-responsive">
-                <table id="tabelJadwal">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Siswa</th>
-                            <th>Guru</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Topik</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listJadwal">
-                        </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
