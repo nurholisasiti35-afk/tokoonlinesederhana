@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Online UMKM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Toko UMKM Kita</h1>
+    <nav>
+      <button onclick="showSection('home')">Homepage</button>
+      <button onclick="showSection('products')">Daftar Produk</button>
+      <button onclick="showSection('cart')">Keranjang (<span id="cart-count">0</span>)</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home-section" class="active-section">
+      <div class="hero">
+        <h2>Selamat Datang di Toko Online UMKM</h2>
+        <p>Temukan produk lokal berkualitas dengan harga terbaik!</p>
+        <button class="btn-primary" onclick="showSection('products')">Belanja Sekarang</button>
+      </div>
+    </section>
+
+    <section id="products-section" class="hidden">
+      <h2>Daftar Produk</h2>
+      
+      <div class="filter-container">
+        <input type="text" id="search-input" placeholder="Search produk..." oninput="filterProducts()">
+        <select id="category-filter" onchange="filterProducts()">
+          <option value="all">Semua Kategori</option>
+          <option value="makanan">Makanan</option>
+          <option value="pakaian">Pakaian</option>
+          <option value="kerajinan">Kerajinan</option>
+        </select>
+      </div>
+
+      <div id="product-list" class="grid-container"></div>
+    </section>
+
+    <section id="product-detail-section" class="hidden">
+      <button onclick="showSection('products')">&larr; Kembali ke Produk</button>
+      <div id="product-detail" class="detail-container"></div>
+    </section>
+
+    <section id="cart-section" class="hidden">
+      <h2>Keranjang Belanja</h2>
+      <div id="cart-items"></div>
+      
+      <div class="cart-summary">
+        <h3>Total Pembayaran: <span id="total-price">Rp 0</span></h3>
+        <button id="checkout-btn" class="btn-primary" onclick="showSection('checkout')" disabled>Lanjut ke Checkout</button>
+      </div>
+    </section>
+
+    <section id="checkout-section" class="hidden">
+      <h2>Form Checkout</h2>
+      <form id="checkout-form" onsubmit="processOrder(event)">
+        <div class="form-group">
+          <label for="name">Nama Lengkap:</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Alamat Pengiriman:</label>
+          <textarea id="address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="payment">Metode Pembayaran:</label>
+          <select id="payment" required>
+            <option value="transfer">Transfer Bank</option>
+            <option value="cod">Bayar di Tempat (COD)</option>
+            <option value="e-wallet">E-Wallet</option>
+          </select>
+        </div>
+        <h3>Ringkasan Total: <span id="checkout-total">Rp 0</span></h3>
+        <button type="submit" class="btn-primary">Konfirmasi Pesanan</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
