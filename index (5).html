@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOKO ONLINE SEDERHANA - Booking Konsultasi Guru</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>TOKO ONLINE SEDERHANA</h1>
+            <p>Sistem Booking Konsultasi Guru</p>
+        </header>
+
+        <section class="card">
+            <h2>Form Booking Konsultasi</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="namaSiswa">1. Nama Siswa</label>
+                    <input type="text" id="namaSiswa" placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pilihGuru">2. Pilih Guru</label>
+                    <select id="pilihGuru" required>
+                        <option value="">-- Pilih Guru --</option>
+                        <option value="Pak Budi (Matematika)">Pak Budi (Matematika)</option>
+                        <option value="Bu Siti (Bahasa Inggris)">Bu Siti (Bahasa Inggris)</option>
+                        <option value="Pak Andi (Fisika)">Pak Andi (Fisika)</option>
+                        <option value="Bu Dewi (Bimbingan Konseling)">Bu Dewi (Bimbingan Konseling)</option>
+                    </select>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="pilihTanggal">3. Pilih Tanggal</label>
+                        <input type="date" id="pilihTanggal" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pilihJam">4. Pilih Jam</label>
+                        <input type="time" id="pilihJam" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="topikKonsultasi">5. Topik Konsultasi</label>
+                    <textarea id="topikKonsultasi" rows="3" placeholder="Jelaskan singkat topik yang ingin dibahas..." required></textarea>
+                </div>
+
+                <button type="submit" id="btnSubmit">Simpan Jadwal Booking</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>6. Jadwal Konsultasi Terdaftar</h2>
+            <div class="table-responsive">
+                <table id="tabelJadwal">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Siswa</th>
+                            <th>Guru</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            <th>Topik</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listJadwal">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
